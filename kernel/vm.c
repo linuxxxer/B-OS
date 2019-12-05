@@ -435,6 +435,8 @@ copyout(pagetable_t pagetable, uint64 dstva, char *src, uint64 len)
 
       if (pte == 0)
           return -1;
+//   ak je COW flag nastaveny, tak prepiseme pagetable na dstva (destination
+//   virtual address)
       if (*pte & PTE_COW)
       {
           if(uvmcow(pagetable, dstva) < 0)
