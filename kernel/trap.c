@@ -65,8 +65,12 @@ usertrap(void)
     intr_on();
 
     syscall();
+//     osetrujes ci sa jedna o vypadok stranky
+//     vypadok sa nastane ked program chce pisat na pamat 
+//     ktora ma PTE_W (write flag) = 0
   } else if((r_scause() == 13) || (r_scause() == 15))
   {
+//     ked ano, tak namapujes 
       if(uvmcow(p->pagetable, r_stval()) < 0)
       {
           p->killed = 1;
